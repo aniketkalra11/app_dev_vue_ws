@@ -1,21 +1,12 @@
 <template>
- <div>
-  <!-- <PostContainer user_id="demo_id" post_id="demo_post_id" title="Demo Title" containt="Post Demo Containt"></PostContainer> -->
-  <navBar></navBar>
-  <PostContainer v-for="post in l_posts" :key="post.demo_post_id" :title="post.title" :user_id="post.demo_id" :post_id="post.demo_post_id"  :containt="post.containt"></PostContainer>
-  <ProfilePostContainer  ></ProfilePostContainer>
-  <SignUpContainer></SignUpContainer>
+ <div class="container center_class">
+  <router-view></router-view>
  </div>
-
-
 </template>
 
 <script>
 
-import NavBar from './components/nav_bar/NavContainer.vue'
-import PostContainer from './components/post_componets/PostContainer.vue'
-import ProfilePostContainer from './components/post_componets/ProfilePostContainer.vue'
-import SignUpContainer from './components/user_components/SignUpContainer.vue'
+
 
 
 export default {
@@ -45,15 +36,11 @@ export default {
     }
   },
   components:{
-    PostContainer,
-    ProfilePostContainer,
-    SignUpContainer,
-    NavBar
-}
+  }
 }
 
 </script>
 
-<style>
+<style scoped>
 
 </style>
