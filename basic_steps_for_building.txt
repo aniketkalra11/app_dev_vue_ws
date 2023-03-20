@@ -1,0 +1,13 @@
+first learn how to route in vue 
+we really don't know how we are going to route the route 
+
+1. Learn vue route 
+2. create signup page
+3. create login page
+4. then profile vue page 
+5. particular post page
+6. then follower list
+7. following list page
+8. detialed post page.
+
+TODO: will be maintained and update accordingly
