@@ -1,7 +1,6 @@
 <template>
- <div class="container center_class">
-  <router-view></router-view>
- </div>
+
+ <router-view></router-view>
 </template>
 
 <script>
