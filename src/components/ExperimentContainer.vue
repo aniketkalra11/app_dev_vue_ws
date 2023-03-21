@@ -1,12 +1,15 @@
 <template>
+	<NavBar></NavBar>
+	<RecentPostCarousel></RecentPostCarousel>
 	<div class="container ex_container">
 		<LoadingGrowingSpinner></LoadingGrowingSpinner>
 	</div>
 	<div class="container post_with_text">
 		<PostWithTextOnly></PostWithTextOnly>
-		<PostContainer></PostContainer>
 		<PostWithImage></PostWithImage>
+		<PostDeleteAndEditButton></PostDeleteAndEditButton>
 	</div>
+
 </template>
 
 <script>
@@ -14,6 +17,11 @@ import LoadingGrowingSpinner from './LoadingGrowingSpinner.vue';
 import PostWithTextOnly from './post_componets/PostWithTextOnly.vue';
 import PostContainer from './post_componets/PostContainer.vue';
 import PostWithImage from './post_componets/PostWithImage.vue';
+import NavBar from './nav_bar/NavContainer.vue'
+import RecentPostCarousel from './dashboard_components/RecentPostCarousel.vue';
+import PostDeleteAndEditButton from './post_componets/PostDeleteAndEditButton.vue';
+
+
 
 
 const expirement_container = {
@@ -27,7 +35,10 @@ const expirement_container = {
 		LoadingGrowingSpinner,
 		PostWithTextOnly,
 		PostContainer, 
-		PostWithImage
+		PostWithImage,
+		NavBar,
+		RecentPostCarousel,
+		PostDeleteAndEditButton
 	}
 }
 export default expirement_container

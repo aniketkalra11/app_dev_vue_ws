@@ -1,9 +1,18 @@
 <template>
 	<div class="card mb-3">
 		<div class="card-body">
-			<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+			<p class="card-text float-left"><small class="text-muted">Last updated 3 mins ago</small></p>
+			<a href="">
+				<svg xmlns="http://www.w3.org/2000/svg" :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16">
+				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" v-if="!is_book_marked"/>
+				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" v-if="is_book_marked" :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16">
+				<path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+				</svg>
+			</a>
+			<br><br>
 			<h5 class="card-title">Card title</h5>
-			<p class="card-text">Card Containt</p>
+			<p class="card-text">Card Containt</p><br><br>
 			<a href="">
 			<svg xmlns="http://www.w3.org/2000/svg" :width="icon_width +'px'" :height="icon_hegiht+ 'px'" fill="currentColor" class="bi bi-heart float-left" viewBox="0 0 16 16" v-if="!is_liked">
 				<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
@@ -32,7 +41,9 @@
 		data(){
 			return {
 				icon_hegiht: 30,
-				icon_width: 30
+				icon_width: 30,
+				is_book_marked:false,
+				is_liked: false
 			}
 		}
 	}
@@ -41,6 +52,9 @@
 <style scoped>
 .icon_text{
 	padding: 5px;
+}
+.book_mark_logo{
+	margin-right:22px
 }
 
 </style>
