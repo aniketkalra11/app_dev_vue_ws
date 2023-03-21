@@ -10,6 +10,7 @@ import UserDashBoard from './components/user_components/UserDashBoard.vue'
 import ExperimentContainer from './components/ExperimentContainer.vue'
 import IndividualPostPage from './components/post_componets/IndividualPostPage.vue'
 import UserProfile from './components/user_components/UserProfile.vue'
+import CreatePost from './components/post_componets/CreatePost.vue'
 
 const routes = createRouter({
 	history: createWebHistory(),
@@ -19,7 +20,8 @@ const routes = createRouter({
 		{ path: "/user/dashboard", component: UserDashBoard},
 		{ path: "/experiment", component: ExperimentContainer},
 		{ path:"/user/post/view", component: IndividualPostPage},
-		{ path: "/user/profile", component: UserProfile}
+		{ path: "/user/profile", component: UserProfile},
+		{ path: "/user/createpost", component: CreatePost}
 	]
 });
 export default routes;
