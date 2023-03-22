@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
-		<PostWithImage></PostWithImage>
+		<PostWithImage is_owner="true"></PostWithImage>
 	</div>
 	<div class="container">
-		<PostWithTextOnly></PostWithTextOnly>
+		<PostWithTextOnly is_owner="true"></PostWithTextOnly>
 	</div>
 </template>
 

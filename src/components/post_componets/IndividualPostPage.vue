@@ -20,6 +20,7 @@
 				</h5>
 			</div>
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+				
 				<LikeUserGrid>
 
 				</LikeUserGrid>
@@ -35,8 +36,9 @@
 			</div>
 			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
 				<div class="card-body">
-					Currently Have N comments
+					<h6>Currently This post Have N comments</h6>
 					<PostComment v-for="n in num_of_comments" v-bind:key="n"></PostComment>
+					<WriteComment></WriteComment>
 				</div>
 			</div>
 		</div>
@@ -50,6 +52,7 @@
 import NavBar from '../nav_bar/NavContainer.vue';
 import LikeUserGrid from './LikeUserGrid.vue';
 import PostComment from './PostCommentContainer.vue'
+import WriteComment from './WriteComment.vue'
 export default{
 	data(){
 		return {
@@ -59,18 +62,19 @@ export default{
 	components:{
 		NavBar,
 		LikeUserGrid,
-		PostComment
+		PostComment,
+		WriteComment
 	}
 }
 </script>
 
 <style scoped>
 .carousel_size{
-	height:30vh;
+
 	width: 40vw;
 }
 .image_size{
-	height:50vh;
+
 	width: 50vw;
 }
 

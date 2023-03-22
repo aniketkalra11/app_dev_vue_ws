@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container recent-post-carousel" >
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -40,17 +40,42 @@
 			</a>
 		</div>
 	</div>
+
+	<CarouselImage></CarouselImage>
+
+
 </template>
 
 <script>
+import CarouselImage from '../dashboard_components/CarouselImage.vue'
 export default{
+	data(){
+		return{
+			is_first_active: true,
+			list_recent_post: ['../../assets/sample_1.jpg', '../../assets/sample_2.jpg', '../../assets/sample_3.jpg']
+		}
+	},
+	components:{
+		CarouselImage
+	},
+	watch:{
+		is_first_active(){
+			if(this.is_first_active)
+			{
+				this.is_first_active = false;
+			}
+		}
+	}
 
 }
 </script>
 
 <style scoped>
 .crosal_dimesion{
-	height: 30vh;
+
 	width: 20vw;
+}
+.recent-post-carousel{
+	margin-bottom: 10px;
 }
 </style>

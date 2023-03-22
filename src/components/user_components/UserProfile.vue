@@ -13,8 +13,9 @@ import UserDetailView from './UserDetailView.vue';
 export default{
 	components:{
 		NavBar,
-		UserProfilePost,
-		UserDetailView
+		UserDetailView,
+		UserProfilePost
+
 	}
 }
 </script>

@@ -57,20 +57,27 @@ export default {
   },
   methods:{
     getCurrentActiveBtn(){
-      if (this.current_active_bar.toLowerCase() == "home")
-      {
-        this.is_home_active = true;
-        console.log("home statement executed")
+      try{
+        if (this.current_active_bar.toLowerCase() == "home")
+        {
+          this.is_home_active = true;
+          console.log("home statement executed")
+        }
+        else if (this.current_active_bar.toLowerCase() == "profile")
+        {
+          this.is_profile_active = true;
+        }
+        else if (this.current_active_bar.toLowerCase() == "createpost")
+        {
+          this.is_crate_post_active = true;
+        }
       }
-      else if (this.current_active_bar.toLowerCase() == "profile")
-      {
-        this.is_profile_active = true;
-      }
-      else if (this.current_active_bar.toLowerCase() == "createpost")
-      {
-        this.is_crate_post_active = true;
-      }
+    catch(e)
+    {
+      console.log("error arrived highlighting home button", e)
+      this.is_home_active = true;
     }
+  }
   },
   created(){
     console.log("button creation complete, Receiving val:", this.current_active_bar);

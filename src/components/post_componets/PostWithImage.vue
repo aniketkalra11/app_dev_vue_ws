@@ -15,6 +15,8 @@
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<a class="dropdown-item" href="#">Report Post</a>
 					<a class="dropdown-item" href="#">Hide Post</a>
+					<a class="dropdown-item" href="#" v-if="is_owner">Edit Post</a>
+					<a class="dropdown-item" href="#" v-if="is_owner">Delete Post</a>
 				</div>
 		</div>
 		</div>
@@ -27,17 +29,20 @@
 // import PostContainer from './PostContainer.vue';
 import PostContaint from './PostContaint.vue'
 export default {
-    data() {
-        return {
-            is_liked: false
-        };
-    },
-    container: {
-        PostContaint
-    },
+	props:[ 'is_owner'],
+		data() {
+				return {
+						is_liked: false,
+						is_bookmarked: false,
+				};
+		},
+		container: {
+				PostContaint
+		},
     components: { 
 			PostContaint 
 		}
+
 }
 </script>
 

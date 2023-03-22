@@ -7,9 +7,11 @@
 	<div class="container post_with_text">
 		<PostWithTextOnly></PostWithTextOnly>
 		<PostWithImage></PostWithImage>
-		<PostDeleteAndEditButton></PostDeleteAndEditButton>
+		<!-- <PostDeleteAndEditButton></PostDeleteAndEditButton> -->
 	</div>
-
+	<div class="container">
+		<SearchWindow></SearchWindow>
+	</div>
 </template>
 
 <script>
@@ -20,6 +22,7 @@ import PostWithImage from './post_componets/PostWithImage.vue';
 import NavBar from './nav_bar/NavContainer.vue'
 import RecentPostCarousel from './dashboard_components/RecentPostCarousel.vue';
 import PostDeleteAndEditButton from './post_componets/PostDeleteAndEditButton.vue';
+import SearchWindow from './search_bars/search_container.vue'
 
 
 
@@ -38,7 +41,8 @@ const expirement_container = {
 		PostWithImage,
 		NavBar,
 		RecentPostCarousel,
-		PostDeleteAndEditButton
+		PostDeleteAndEditButton,
+		SearchWindow
 	}
 }
 export default expirement_container
