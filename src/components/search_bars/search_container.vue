@@ -14,7 +14,7 @@
 		</div> -->
 		<div class="row" v-for="ids in profile_fragments" :key="ids">
 			<div class="col-sm" v-for="id in ids" :key="id">
-				<ProfileCard></ProfileCard>
+				<ProfileCard	></ProfileCard>
 			</div>
 		</div>
 	</div>
@@ -24,6 +24,7 @@
 <script>
 import ProfileCard from '../user_components/UserProfileCard.vue'
 import NavBar from '../nav_bar/NavContainer.vue'
+import axios from 'axios'
 export default{
 	components:{
 		ProfileCard,
@@ -36,6 +37,17 @@ export default{
 		}
 	},
 	async created(){
+		console.log("env var is:", process.env);
+		console.log("Calling api using axios")
+		const path= "http://172.25.254.249:5000/api/test"
+		axios.post(path,{
+			
+		}
+		).then(response => {
+			console.log(response)
+		}).catch(err =>{
+			console.log(err)
+		})
 		console.log('creating fragments')
 		let index=0;
 		let temp = [];
