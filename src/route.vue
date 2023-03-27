@@ -12,6 +12,7 @@ import IndividualPostPage from './components/post_componets/IndividualPostPage.v
 import UserProfile from './components/user_components/UserProfile.vue'
 import CreatePost from './components/post_componets/CreatePost.vue'
 import SearchContainer from './components/search_bars/search_container.vue'
+import EditProfileContainer from './components/user_components/EditProfileContainer.vue'
 
 const routes = createRouter({
 	history: createWebHistory(),
@@ -23,7 +24,8 @@ const routes = createRouter({
 		{ path:"/user/post/view", component: IndividualPostPage},
 		{ path: "/user/profile", component: UserProfile},
 		{ path: "/user/createpost", component: CreatePost},
-		{ path: "/user/search", component: SearchContainer}
+		{ path: "/user/search", component: SearchContainer},
+		{ path: "/user/editprofile", component: EditProfileContainer}
 	]
 });
 export default routes;

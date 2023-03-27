@@ -8,7 +8,7 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="../../assets/sample_1.jpg"  class="d-block w-100 crosal_dimesion" alt="...">
+					<img src="http://172.25.254.249:5000/static/resources/img/test2@2_21_51_57.png"  class="d-block w-100 crosal_dimesion" alt="...">
 					<div class="carousel-caption d-none d-md-block">
 					<h5>First Image May be user Id</h5>
 					<p>Post on Date</p>
@@ -16,14 +16,14 @@
 
 				</div>
 				<div class="carousel-item">
-					<img src="../../assets/sample_2.jpg" class="d-block w-100 crosal_dimesion" alt="...">
+					<img src="http://172.25.254.249:5000/static/resources/img/Test@123_22_55_51.png" class="d-block w-100 crosal_dimesion" alt="...">
 					<div class="carousel-caption d-none d-md-block">
 						<h5>Second Image May be user Id</h5>
 						<p>Post on Date</p>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="../../assets/sample_3.jpg" class="d-block w-100 crosal_dimesion" alt="...">
+					<img src="http://172.25.254.249:5000/static/resources/img/test1@1_21_49_17.png" class="d-block w-100 crosal_dimesion" alt="...">
 					<div class="carousel-caption d-none d-md-block">
 						<h5>Third Image May be user Id</h5>
 						<p>Post on Date</p>

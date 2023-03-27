@@ -29,7 +29,7 @@ v-bind:style="{top: getPosX()+'vh' , left: getPosY() + 'vw'}"
           <div class="input-group-prepend">
             <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
           </div>
-          <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" v-model="userName" aria-describedby="validationTooltipUsernamePrepend" required>
+          <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" v-model="userName" aria-describedby="validationTooltipUsernamePrepend"  disabled>
           <div class=" warn_text" v-if="!is_user_name_crr">
             {{ usr_name_err_msg }}
           </div>
@@ -78,7 +78,7 @@ v-bind:style="{top: getPosX()+'vh' , left: getPosY() + 'vw'}"
         <input type="file" class="form-control" id="profile_photo"  >
       </div>
     </div>
-    <div class="form-group row">
+    <!-- <div class="form-group row">
       <label for="inputPassword1" class="col-sm-2 col-form-label">Password</label>
       <div class="col-sm-10">
         <input type="password" class="form-control" id="inputPassword1" placeholder="Password" v-model="password">
@@ -92,13 +92,13 @@ v-bind:style="{top: getPosX()+'vh' , left: getPosY() + 'vw'}"
             incorrect input
           </div>
       </div>
-    </div>
+    </div> -->
     <div class="form-group row">
       <div class="col-sm-10">
-        <button type="submit" class="btn btn-primary" @click="createUserCall">Sign up</button>
+        <button type="submit" class="btn btn-primary" @click="editUserCall">Save Changes</button>
       </div>
       <div class="col-sm-15">
-        <button class="btn btn-primary" type="reset"><router-link to="/" > Sign in </router-link></button>
+        <button class="btn btn-primary" type="reset"><router-link to="/user/profile" > Go Back</router-link></button>
       </div>
     </div>
   </form>
@@ -138,7 +138,8 @@ export default{
       pos_y: 0,
       reverse_bubble_x: false,
       reverse_bubble_y: false,
-      is_signup_success: false
+      is_edit_success: false,
+      complete_url : ''
     }
   },
   watch:
@@ -226,10 +227,10 @@ export default{
         this.is_password_matched = false;
       }
     },
-    is_signup_success(){
-      if (this.is_signup_success){
-        alert("user creation success please login");
-        this.$router.push("/");
+    is_edit_success(){
+      if (this.is_edit_success){
+        // alert("user creation success please login");
+        this.$router.push("/user/profile");
       }
     }
   },
@@ -240,37 +241,34 @@ export default{
     getPosY(){
       return this.pos_y;
     },
-    createUserCall(){
+    editUserCall(){
       console.log('create user called')
       let file = document.getElementById('profile_photo').files[0]
       console.log('receiving file', file)
       // if (file)
       const form_data = new FormData()
       form_data.append('profile_photo', file)
-      let path = process.env.VUE_APP_FLASK_SERVER_URL
       form_data.append('fname', this.firstName);
       form_data.append('lname', this.lastName);
       form_data.append('user_id', this.userName);
-      form_data.append('password', this.password);
       form_data.append("dob", this.dob);
       form_data.append("city", this.city);
       form_data.append("profession", this.profession);
       // form_data.append("profile_photo", file);
 
-      path = path + "/api/v2/user/create"
       console.log('creating api request')
       let config = {
         header:{
           "Content-Type": "multipart/form-data"
         }
       }
-      axios.post(path, form_data, config).then(response =>{
+      axios.put(this.complete_url, form_data, config).then(response =>{
         console.log("respones", response)
         console.log('sent');
         let data = response.data
         console.log(data)
         if (data.is_success){
-          this.is_signup_success = true;
+          this.is_edit_success = true;
           print('login_success');
         }
         else{
@@ -281,8 +279,8 @@ export default{
           console.log('err arrived', err);
           console.log('err arrived');
       })
-      alert('wait for it');
-    }
+      // alert('wait for it');
+    },
   },
   created(){
     setInterval(
@@ -320,6 +318,38 @@ export default{
         }
       }, 10
     )
+    let usr_get_url = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/fetch/" + window.localStorage.getItem('user_id') ;
+    this.complete_url = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/create";
+    
+    axios.get(usr_get_url).then(respones=>{
+      if (respones.status == 200)
+      {
+        console.log('user details retrived complete');
+        let data = respones.data;
+        console.log(data)
+        this.firstName = data.fname;
+        this.lastName = data.lname;
+        this.userName = data.user_id;
+
+        // this.dob = data.dob_d;
+        let n_d = new Date(data.dob_d)
+        var day = ("0" + n_d.getDate()).slice(-2);
+        var month = ("0" + (n_d.getMonth() + 1)).slice(-2);
+        let str_date = n_d.getFullYear() + "-" + month + "-" + day;
+        console.log('created obj',n_d.getDate(), str_date)
+        this.dob = str_date
+        console.log(this.dob)
+        this.city = data.city;
+        if (data.profession != "NOT_AVAILABLE")
+        {
+          this.profession = data.profession;
+        }
+      }
+    }).catch(err =>{
+      console.log('unable to edit profile error arrived');
+      console.log(err);
+    })
+
   }
 
 }

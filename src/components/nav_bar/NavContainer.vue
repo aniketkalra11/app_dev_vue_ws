@@ -9,15 +9,15 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item " :class="{active : is_home_active}">
-        <router-link to="/" class="nav-link">Home</router-link>
+        <router-link to="/user/dashboard" class="nav-link">Home</router-link>
         <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
       </li>
       <li class="nav-item" :class="{active: is_profile_active}">
         <!-- <a class="nav-link" href="#">Profile</a> -->
-        <router-link to="/" class="nav-link">Profile</router-link>
+        <router-link to="/user/profile" class="nav-link">Profile</router-link>
       </li>
       <li class="nav-item" :class="{active: is_crate_post_active}">
-        <router-link to="/" class="nav-link">Create Post</router-link>
+        <router-link to="/user/createpost" class="nav-link">Create Post</router-link>
       </li>
       <li class="nav-item dropdown" :class="{active: is_book_mark_active}">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,10 +34,10 @@
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> -->
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" @submit.prevent="submitForm">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-      <button type="button" class="btn btn-outline-secondary" style="margin-left:10px">Logout</button>
+      <button class="btn btn-outline-info my-2 my-sm-0" type="submit" @click="searchUser">Search</button>
+      <button type="button" class="btn btn-outline-secondary" style="margin-left:10px" @click="logoutAction">Logout</button>
     </form>
   </div>
 </nav>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props:['current_active_bar'],
   data(){
@@ -52,7 +53,8 @@ export default {
       is_home_active: false,
       is_profile_active: false,
       is_crate_post_active: false,
-      is_book_mark_active: false
+      is_book_mark_active: false,
+      is_logout_success: false
     }
   },
   methods:{
@@ -77,11 +79,61 @@ export default {
       console.log("error arrived highlighting home button", e)
       this.is_home_active = true;
     }
+  },
+  async logoutAction(){
+    let path = process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/user/authentication';
+    console.log('path is:', path)
+    let config = {
+      headers: {
+        'token': window.localStorage.getItem('token'),
+        'user_id': window.localStorage.getItem('user_id'),
+        'Content-Type': 'application/json'
+      }
+    }
+    let data = {
+      'user_id': window.localStorage.getItem('user_id')
+    }
+    await axios.delete(path, {
+      headers:config.headers,
+      data:data
+    }).then(response=>{
+      console.log(response)
+      data = response.data
+      if (data.is_success){
+        this.is_logout_success = true;
+        console.log('logout success');
+      }
+      else{
+        console.log('error arrived');
+        console.log(data)
+      }
+    }).catch(err =>{
+      console.log(err);
+    })
+    if (this.is_logout_success)
+    {
+      window.localStorage.clear()
+    }
+    
+  },
+  async searchUser(){
+    " This will search user and display on the screen"
+    this.$router.push('/user/search')
   }
   },
-  created(){
+  async created(){
     console.log("button creation complete, Receiving val:", this.current_active_bar);
     this.getCurrentActiveBtn();
+  },
+  watch:{
+    is_logout_success(){
+      console.log('checking watcher')
+      if (this.is_logout_success == true)
+      {
+        console.log('logout success, redirecting to main page');
+        this.$router.push('/');
+      }
+    }
   }
 
 }

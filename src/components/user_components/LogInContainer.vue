@@ -93,12 +93,12 @@ export default{
    } 
   },
   methods:{
-    submitForm(){
+    async submitForm(){
       console.log("Submit Prevented")
     },
     async loginValidation(){
       let path= process.env.VUE_APP_FLASK_SERVER_URL
-      let auth_path = path+'/api/user/authentication'
+      let auth_path = path+'/api/v2/user/authentication'
       // let json_form = JSON.stringify(this.form)
       console.log('path received as:', path, auth_path)
       await axios({
@@ -149,6 +149,7 @@ export default{
       //* Storing token in localStorage
       window.localStorage.setItem('user_id', this.form.user_id)
       window.localStorage.setItem('token', this.token)
+      
       return this.$router.push("/user/dashboard")
     }
   }

@@ -2,10 +2,10 @@
 <div class="container" id="main_container">
   <div class="container sub_container">
     <div class="container">
-      <img src="../../assets/logo.png" class="profile_image">
+      <img :src="profileImg" class="profile_image">
     </div>
     <div class="container">
-      <h5 id="user-name-h">Name of the User</h5>
+      <h5 id="user-name-h">{{ user_name }}</h5>
     </div>
   </div>
   <div class="container sub_container">
@@ -28,13 +28,13 @@
               </div>
               <div class="row">
                 <div class="col">
-                  4
+                  {{ numFollowers }}
                 </div>
                 <div class="col">
-                  4
+                  {{ numFollowing }}
                 </div>
                 <div class="col">
-                  5
+                  {{ numPost }}
                 </div>
               </div>
               
@@ -42,7 +42,8 @@
           </div>
 
     </div>
-    <a href="#" class="btn btn-primary">Edit Profile</a>
+    <!-- <a href="#" class="btn btn-primary">Edit Profile</a> -->
+    <RouterLink to="/user/editprofile" class="btn btn-primary">Edit Profile</RouterLink>
   </div>
 </div>
     </div>
@@ -50,7 +51,43 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default{
+  data(){
+    return {
+    numPost: 0,
+    numFollowers: 0,
+    numFollowing: 0,
+    profileImg : '',
+    user_name: ''
+    }
+  },
+  async created(){
+    console.log("fetching user profile details");
+    let path = process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/user/fetch/' + localStorage.getItem('user_id')
+
+    await axios.get(path, {}).then(response =>{
+      console.log(response)
+      if(response.status == 200)
+      {
+        let data = response.data
+        this.numFollowers = data.numFollowers
+        this.numFollowing = data.numFollowing
+        this.numPost = data.numPosts
+        this.user_name = data.name
+        this.profileImg = this.getImagePath(data.profile_photo)
+      }
+    }).catch(err =>{
+      console.log(err, ' error arrived during call');
+    })
+  },
+  methods:{
+    getImagePath(image_link){
+      let image_url = process.env.VUE_APP_FLASK_SERVER_URL + '/static/' + image_link
+      return image_url
+    }
+  }
 
 }
 </script>
