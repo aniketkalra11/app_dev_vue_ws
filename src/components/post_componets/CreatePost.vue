@@ -9,8 +9,8 @@
 			<div class="form-group">
 				<label for="post_type">Post Type</label>
 				<select class="form-control" id="post_type">
-					<option>Private Post</option>
-					<option selected>Public Post</option>
+					<option value="private">Private Post</option>
+					<option value="public" selected>Public Post</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -52,44 +52,42 @@ export default{
 		getPostContaint(){
 			return this.postContaint;
 		},
-		sendCreatePostRequest(){
+		async sendCreatePostRequest(){
 			// This will send a api request to create a post
 			let post_title = this.postTitle
 			console.log('post_title: ', post_title)
 			let post_containt = this.postContaint
-			console.log('post_containt: ', post_containt)
+			console.log('caption ', post_containt)
 			let post_type = document.getElementById('post_type').value
 			console.log("post type: ", post_type)
 			const file = document.getElementById('post_image').files[0]
 			const formData = new FormData()
 			formData.append('image', file)
-			formData.append('post_title', post_title)
-			formData.append('post Containt', post_containt)
-			formData.append('post_type', post_type)
+			formData.append('title', post_title)
+			formData.append('caption', post_containt)
+			formData.append('type', post_type)
 			console.log("Create post request received", file)
 			let flask_url = process.env.VUE_APP_FLASK_SERVER_URL
 			console.log( 'url is', flask_url)
 			let path = flask_url + '/api/v2/post/' + localStorage.getItem('user_id') + "/sample_post"
-			fetch(path,  {
-				method: "post",
-
-				body: formData
-			}).then((response) =>{
-				console.log(response)
-				return response.data
-			}).then((data) =>{
-				console.log('data receiveing: ', data)
-			}).catch((err) =>{
-				console.log(' error arrived', err)
-			})
 			const config = {
 				headers:{
 					"token": localStorage.getItem('token'),
-					'Access-Control-Allow-Origin': "*"
 				}
 			}
-			axios.post(path, formData, config).then((response) =>{
+			await axios.post(path, formData, config).then((response) =>{
 				console.log("response", response)
+				let data = response.data
+				console.log(data)
+				if (data.is_success)
+				{
+					console.log('post creation complete, redirecting to profile')
+					this.$router.push('/user/profile')
+				}
+				else{
+					console.log('unable to create log error arrived:', data.err)
+					alert('error arrived: ', data.err);
+				}
 			}).catch((err) =>{
 				console.log(err)
 			})

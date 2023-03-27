@@ -1,11 +1,11 @@
 <template>
 <div class="container">
 	<div class="card bg-dark text-white">
-		<img class="card-img" src="../../assets/draw2.webp" alt="Card image">
+		<img class="card-img" :src="this.image_url" alt="Card image">
 		<div class="card-img-overlay">
 			<!-- <span class="card-title card_title_custom font-weight-bolder">user-id</span> -->
 
-			<h5 class="card-title float-left">Card title</h5>
+			<h5 class="card-title float-left">{{ title }}</h5>
 			<div class="dropdown dropdown_btn">
 				<a class="btn btn-secondary float-right" href="#" role="button"  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical float-right float-top dropdown" viewBox="0 0 16 16">
@@ -21,27 +21,68 @@
 		</div>
 		</div>
 	</div>
-	<PostContaint></PostContaint>
+	<PostContaint :timestamp="timestamp" :title="title" :caption="caption" :is_already_liked="is_already_liked" :is_bookmarked="is_bookmarked" :likes="likes" :comment_count="comment_count"></PostContaint>
 </div>
 </template>
 
 <script>
 // import PostContainer from './PostContainer.vue';
+import axios from 'axios'
 import PostContaint from './PostContaint.vue'
 export default {
-	props:[ 'is_owner'],
+	props:[ 'is_owner', 'post_id'],
 		data() {
 				return {
-						is_liked: false,
+						path: '',
+						likes: 0,
+						is_already_liked: false,
+						bookmarks: 0,
 						is_bookmarked: false,
+						comment_count: 0,
+						title: '',
+						caption: '',
+						image_url: '',
+						timestamp: '',
+						user_id: ''
 				};
 		},
-		container: {
-				PostContaint
-		},
-    components: { 
+		components: { 
 			PostContaint 
+		},
+		async created(){
+			console.log('creating image post for post_id', this.post_id);
+			this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/post/";
+			let get_post_path = this.path + window.localStorage.getItem('user_id') + "/" + this.post_id;
+			console.log('final url path is: ', this.path)
+			let config = {
+				headers:{
+					'Token': window.localStorage.getItem('token')
+				}
+			}
+			await axios.get(get_post_path, '', config).then(response =>{
+				if (response.status == 200)
+				{
+					let data = response.data
+					console.log(data);
+					this.title = data.title;
+					this.caption = data.caption;
+					this.is_already_liked = data.is_already_liked;
+					this.likes = data.likes;
+					this.image_url = this.getImageUrl(data.image_url);
+					this.comment_count = data.comment_count;
+					// this.comment_count = data.comment_count;
+					this.timestamp = data.timestamp;
+					console.log('type of ')
+				}
+			})
+		},
+		methods:{
+			getImageUrl(image_id){
+				let final_url = process.env.VUE_APP_FLASK_SERVER_URL +  "/static/resources/img/" + image_id;
+				return final_url
+			}
 		}
+
 
 }
 </script>
