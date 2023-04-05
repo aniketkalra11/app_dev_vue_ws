@@ -89,7 +89,8 @@ export default{
       is_login_success:false,
       is_error_arived:false,
       error_msg:"",
-      token: ''
+      token: '',
+      user_name: ''
    } 
   },
   methods:{
@@ -125,6 +126,7 @@ export default{
           this.token = data.token
           this.error_msg = ""
           this.is_error_arived = false
+          this.user_name = data.user_name
         }
         else{
           console.log("login failed");
@@ -149,6 +151,7 @@ export default{
       //* Storing token in localStorage
       window.localStorage.setItem('user_id', this.form.user_id)
       window.localStorage.setItem('token', this.token)
+      window.localStorage.setItem('user_name', this.user_name)
       
       return this.$router.push("/user/dashboard")
     }

@@ -5,7 +5,7 @@
 		<div class="card-img-overlay">
 			<!-- <span class="card-title card_title_custom font-weight-bolder">user-id</span> -->
 
-			<h5 class="card-title float-left">{{ title }}</h5>
+			<h5 class="card-title float-left">{{ user_id }}</h5>
 			<div class="dropdown dropdown_btn">
 				<a class="btn btn-secondary float-right" href="#" role="button"  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical float-right float-top dropdown" viewBox="0 0 16 16">
@@ -21,7 +21,7 @@
 		</div>
 		</div>
 	</div>
-	<PostContaint :timestamp="timestamp" :title="title" :caption="caption" :is_already_liked="is_already_liked" :is_bookmarked="is_bookmarked" :likes="likes" :comment_count="comment_count"></PostContaint>
+	<PostContaint :timestamp="timestamp" :title="title" :caption="caption" :is_already_liked="is_already_liked" :is_bookmarked="is_bookmarked" :likes="likes" :comment_count="comment_count" :post_id="post_id"></PostContaint>
 </div>
 </template>
 
@@ -72,7 +72,8 @@ export default {
 					this.comment_count = data.comment_count;
 					// this.comment_count = data.comment_count;
 					this.timestamp = data.timestamp;
-					console.log('type of ')
+					this.user_id = data.user_id
+					// console.log('type of ')
 				}
 			})
 		},

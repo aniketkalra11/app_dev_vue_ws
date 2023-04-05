@@ -25,9 +25,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Show Bookmarks</a>
-          <a class="dropdown-item" href="#">Show Hidden Posts</a>
+          <a class="dropdown-item disabled" href="#" >Show Hidden Posts</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Show Private Posts</a>
+          <a class="dropdown-item" >Show Private Posts</a>
         </div>
       </li>
       <!-- <li class="nav-item">
@@ -35,8 +35,8 @@
       </li> -->
     </ul>
     <form class="form-inline my-2 my-lg-0" @submit.prevent="submitForm">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit" @click="searchUser">Search</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="search_keyword">
+      <button class="btn btn-outline-info my-2 my-sm-0" @click="searchUser">Search</button>
       <button type="button" class="btn btn-outline-secondary" style="margin-left:10px" @click="logoutAction">Logout</button>
     </form>
   </div>
@@ -54,7 +54,8 @@ export default {
       is_profile_active: false,
       is_crate_post_active: false,
       is_book_mark_active: false,
-      is_logout_success: false
+      is_logout_success: false,
+      search_keyword : ''
     }
   },
   methods:{
@@ -118,7 +119,11 @@ export default {
   },
   async searchUser(){
     " This will search user and display on the screen"
-    this.$router.push('/user/search')
+    if (this.search_keyword != '')
+    {
+      this.$router.push('/user/search/'+ this.search_keyword)
+    }
+    
   }
   },
   async created(){

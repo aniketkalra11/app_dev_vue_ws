@@ -18,16 +18,73 @@
         </div>
       </div>
     </div>
-  <PostContaint></PostContaint>
+    <PostContaint :timestamp="timestamp" :title="title" :caption="caption" :is_already_liked="is_already_liked" :is_bookmarked="is_bookmarked" :likes="likes" :comment_count="comment_count" :post_id="post_id"
+		></PostContaint>
   </div>
 </template>
 
 <script>
 import PostContaint from './PostContaint.vue'
-export default{
-  components:{
-    PostContaint
-  }
+import axios from 'axios'
+export default {
+	props:[ 'is_owner', 'post_id'],
+		data() {
+				return {
+						path: '',
+						likes: 0,
+						is_already_liked: false,
+						bookmarks: 0,
+						is_bookmarked: false,
+						comment_count: 0,
+						title: '',
+						caption: '',
+						image_url: '',
+						timestamp: '',
+						user_id: ''
+				};
+		},
+		components: { 
+			PostContaint 
+		},
+		async created(){
+			console.log('creating text post for post_id', this.post_id);
+			this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/post/";
+			let get_post_path = this.path + window.localStorage.getItem('user_id') + "/" + this.post_id;
+			console.log('final url path is: ', this.path)
+			let config = {
+				headers:{
+					'Token': window.localStorage.getItem('token')
+				}
+			}
+			await axios.get(get_post_path, '', config).then(response =>{
+				if (response.status == 200)
+				{
+					let data = response.data
+					console.log(data);
+					this.title = data.title;
+					this.caption = data.caption;
+					this.is_already_liked = data.is_already_liked;
+					this.likes = data.likes;
+					this.image_url = this.getImageUrl(data.image_url);
+					this.comment_count = data.comment_count;
+					// this.comment_count = data.comment_count;
+					this.timestamp = data.timestamp;
+					this.user_id = data.user_id
+					// console.log('type of ')
+				}
+			}).catch(err =>{
+        console.log('unable to retrive data for this post_id: ', this.post_id);
+        console.log("error is:", err);
+      })
+		},
+		methods:{
+			getImageUrl(image_id){
+				let final_url = process.env.VUE_APP_FLASK_SERVER_URL +  "/static/resources/img/" + image_id;
+				return final_url
+			}
+		}
+
+
 }
 
 </script>

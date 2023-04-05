@@ -3,7 +3,7 @@
 <RecentPostCarousel></RecentPostCarousel>
 <div class="container" v-for="post in list_post" :key="post.post_id">
 	<PostWithImage v-if="!post.is_text_only" :post_id="post.post_id"></PostWithImage>
-	<PostWithTextOnly v-else :post_id="post.post_id"></PostWithTextOnly>
+	<PostWithTextOnly v-else :post_id="post.post_id" ></PostWithTextOnly>
 </div>
 </template>
 
@@ -28,7 +28,7 @@ components:{
 	PostWithTextOnly
 },
 created(){
-	this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/dashboard/" + window.localStorage.getItem("user_id")
+	this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/post/" + window.localStorage.getItem("user_id")
 	let config = {
 		headers:{
 			'Token': window.localStorage.getItem('token')
@@ -39,7 +39,7 @@ created(){
 		{
 			console.log('response data', response.data)
 			this.list_post = response.data.list_post
-			console.log(typeof(response.data.list_post))
+			// console.log(typeof(response.data.list_post))
 			console.log(this.list_post)
 			for (let x in this.list_post)
 			{

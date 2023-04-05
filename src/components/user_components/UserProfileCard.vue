@@ -1,13 +1,13 @@
 <template>
 	<div class="container profile_card">
 		<div class="card" style="width: 18rem;">
-			<img class="card-img-top" src="../../assets/sample_1.jpg" alt="Card image cap">
+			<img class="card-img-top" :src="createProfileUrl(img_link)" alt="Card image cap">
 			<div class="card-body">
 				<h5 class="card-title">Card title</h5>
 			</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item">Number of Post: {{ num_of_posts }}</li>
-				<li class="list-group-item">Number of followers: {{ num_of_followers }}</li>
+				<li class="list-group-item">Number of Post: {{ num_posts }}</li>
+				<li class="list-group-item">Number of followers: {{ num_of_followrs }}</li>
 				<li class="list-group-item">Number of following: {{ num_of_followings }}</li>
 			</ul>
 			<div class="card-body">
@@ -21,20 +21,27 @@
 
 <script>
 export default{
-	props:['user_id'],
+	props:['user_id', 'name', 'num_posts', 'num_of_followrs', 'num_of_followings', 'is_already_following', 'img_link'],
 	data(){
 		return {
-			name: 'Something',
-			num_of_posts: 0,
-			num_of_followers: 0,
-			num_of_followings: 0,
-			is_already_following: false,
-			img_src: ''
+			// name: 'Something',
+			// num_of_posts: 0,
+			// num_of_followers: 0,
+			// num_of_followings: 0,
+			// is_following: false,
+			// img_src: ''
 
 		}
 	},
 	async created(){
 		console.log('creating profile')
+		this.is
+	},
+	methods:{
+		createProfileUrl(profile_link){
+			let url = process.env.VUE_APP_FLASK_SERVER_URL + "/static/" + profile_link
+			return url
+		}
 	}
 
 }

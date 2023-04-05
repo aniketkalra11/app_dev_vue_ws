@@ -11,7 +11,7 @@
   <div class="container sub_container">
     <div class=" w-75">
   <div class="card-body">
-    <h5 class="card-title">UserName</h5>
+    <h5 class="card-title">{{user_id}}</h5>
     <div class="container p-3 m-0 border-0 bd-example bd-example-row">
           <div class="card-body">
             <div class="container text-center">
@@ -60,13 +60,14 @@ export default{
     numFollowers: 0,
     numFollowing: 0,
     profileImg : '',
-    user_name: ''
+    user_name: '',
+    user_id: ''
     }
   },
   async created(){
     console.log("fetching user profile details");
     let path = process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/user/fetch/' + localStorage.getItem('user_id')
-
+    this.user_id = localStorage.getItem('user_id');
     await axios.get(path, {}).then(response =>{
       console.log(response)
       if(response.status == 200)

@@ -189,7 +189,7 @@ export default{
       // {
       //   this.is_dob_corr = false
       // }
-      console.log(typeof(this.dob))
+      // console.log(typeof(this.dob))
       //TODO: DOB check pending
     },
     profession(){

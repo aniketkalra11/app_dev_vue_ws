@@ -2,12 +2,14 @@
 	<div class="container">
 		<div class="card">
 		<div class="card-header">
-			User_id
+			<router-link :to="'/user/visit/profile/' + user_id">
+				{{ user_name }}
+			</router-link>
 			<span class="card-subtitle mb-2 text-muted"> says</span>
 		</div>
 		<div class="card-body">
 			<!-- <h5 class="card-title">Special title treatment</h5> -->
-			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			<p class="card-text">{{ comment }}</p>
 		</div>
 	</div>
 </div>
@@ -18,8 +20,10 @@
 export default{
 	data(){
 		return {
-
 		}
+	},
+	props:['user_id', 'user_name', 'comment'],
+	methods:{
 	}
 }
 </script>
