@@ -3,7 +3,7 @@
   <div class="container">
     <div class="card">
       <div class="card-header">
-        <span class="float-left">User_id</span>
+        <span class="float-left">{{ user_name }}</span>
         <span style="padding=10px" class="float-right"></span>
         <div class="dropdown dropdown_btn" >
           <a class="btn btn-secondary float-right" href="#" role="button"  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,6 +41,7 @@ export default {
 						image_url: '',
 						timestamp: '',
 						user_id: '',
+						user_name: '',
 						is_text_only_post : true
 				};
 		},
@@ -68,9 +69,11 @@ export default {
 					this.likes = data.likes;
 					this.image_url = this.getImageUrl(data.image_url);
 					this.comment_count = data.comment_count;
+					this.is_bookmarked = data.is_already_bookmarked;
 					// this.comment_count = data.comment_count;
 					this.timestamp = data.timestamp;
-					this.user_id = data.user_id
+					this.user_id = data.user_id;
+					this.user_name = data.user_name;
 					// console.log('type of ')
 				}
 			}).catch(err =>{

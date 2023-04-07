@@ -47,7 +47,7 @@
 <script>
 import axios from 'axios'
 export default {
-  props:['current_active_bar'],
+  props:['current_active_bar', 'is_in_search_bar'],
   data(){
     return {
       is_home_active: false,
@@ -119,10 +119,15 @@ export default {
   },
   async searchUser(){
     " This will search user and display on the screen"
+    if(this.is_in_search_bar)
+    {
+      this.$parent.get_profiles();
+    }
     if (this.search_keyword != '')
     {
       this.$router.push('/user/search/'+ this.search_keyword)
     }
+    
     
   }
   },

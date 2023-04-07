@@ -1,5 +1,5 @@
 <template>
-	<NavBar current_active_bar="search"></NavBar>
+	<NavBar current_active_bar="search" :is_in_search_bar="true"></NavBar>
 	<div class="container">
 		<!-- <div class="row">
 			<div class="col-sm">
@@ -40,57 +40,9 @@ export default{
 		}
 	},
 	created(){
-		console.log("env var is:", process.env);
-		console.log("Calling api using axios");
-		let path= process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/search"
-		let key_word = this.$route.params['keyword']
-		console.log('keyword is', key_word)
-		this.user_id = localStorage.getItem('user_id')
-		let key = {
-			"keyword" : key_word,
-			"user_id" : this.user_id
-		}
-		axios.post(path, key).then(response =>{
-			if(response.status == 200){
-				let data = response.data
-				this.list_users = data.list_user_container
-				this.create_profile_fragments()
-			}
-		}).catch(err =>{
-			console.log('error arrived during search ', err)
-		})
-		// const path= "http://172.25.254.249:5000/api/test"
-		// axios.post(path,{
-			
-		// }
-		// ).then(response => {
-		// 	console.log(response)
-		// }).catch(err =>{
-		// 	console.log(err)
-		// })
-
-		// console.log('creating fragments')
-		// let index=0;
-		// let temp = [];
-		// for ( let i=0; i<this.result_profiles.length; i++)
-		// {
-		// 	temp[i%3] = this.result_profiles[i]
-		// 	if(i%3 == 2)
-		// 	{
-		// 		this.profile_fragments[index] = temp;
-		// 		console.log('temp is:', temp);
-		// 		temp = []
-		// 		console.log('temp now: ', temp);
-		// 		index++;
-		// 	}
-		// 	if( i == this.result_profiles.length -1  && temp != [])
-		// 	{
-		// 		console.log('appending left overs', temp);
-		// 		this.profile_fragments[index] = temp;
-
-		// 	}
-		// }
-		console.log('creating artificial ids')
+		axios.defaults.headers.common["Content-Type"] = "application/json";
+		axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
+		this.get_profiles();
 	},
 	methods:{
 		create_profile_fragments(){
@@ -114,7 +66,29 @@ export default{
 					this.profile_fragments[index] = temp;
 				}
 		}
-		}
+		},
+		get_profiles(){
+			console.log("env var is:", process.env);
+			console.log("Calling api using axios");
+			let path= process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/search"
+			let key_word = this.$route.params['keyword']
+			console.log('keyword is', key_word)
+			this.user_id = localStorage.getItem('user_id')
+			let key = {
+				"keyword" : key_word,
+				"user_id" : this.user_id
+			}
+			axios.post(path, key).then(response =>{
+				if(response.status == 200){
+					let data = response.data
+					this.list_users = data.list_user_container
+					this.create_profile_fragments()
+				}
+			}).catch(err =>{
+				console.log('error arrived during search ', err)
+			})
+			console.log('creating artificial ids')
+			}
 	}
 }
 </script>

@@ -1,15 +1,16 @@
 <template>
 	<div class="card mb-3">
 		<div class="card-body">
+			<h5 class="card-title" v-if="!$parent.is_text_only_post">{{ $parent.user_name}}</h5>
 			<p class="card-text float-left"><small class="text-muted">Last updated {{ timestamp }}</small></p>
-			<a v-if="!is_bookm" @click="add_bookmark" :href="'#' + post_id">
-				<svg xmlns="http://www.w3.org/2000/svg" :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16" v-if="!is_bookm">
-				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"  v-if="!is_bookm" />
+			<a v-if="!$parent.is_bookmarked" @click="add_bookmark" :href="'#' + post_id">
+				<svg xmlns="http://www.w3.org/2000/svg" :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16" v-if="!$parent.is_bookmarked">
+				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"  v-if="!$parent.is_bookmarked"/>
 				</svg>
-				</a>
-				<a v-if="is_bookm" @click="remove_bookmark" :href="'#' + post_id">
-				<svg xmlns="http://www.w3.org/2000/svg"  :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16"   v-if="is_bookm">
-				<path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"  v-if="is_bookm"/>
+			</a>
+			<a v-if="$parent.is_bookmarked" @click="remove_bookmark" :href="'#' + post_id">
+				<svg xmlns="http://www.w3.org/2000/svg"  :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16"  v-if="$parent.is_bookmarked">
+				<path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"  v-if="$parent.is_bookmarked"/>
 				</svg>
 			</a>
 			<br><br>
@@ -108,6 +109,7 @@ import axios from 'axios'
 					{
 						console.log('bookmark success')
 						this.is_bookm = true;
+						this.$parent.is_bookmarked = true;
 					}
 				}
 			}).catch(err=>{
@@ -124,6 +126,7 @@ import axios from 'axios'
 					{
 						console.log('bookmark success')
 						this.is_bookm = false;
+						this.$parent.is_bookmarked = false;
 					}
 				}
 			}).catch(err=>{

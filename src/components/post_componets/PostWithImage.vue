@@ -5,7 +5,6 @@
 		<div class="card-img-overlay">
 			<!-- <span class="card-title card_title_custom font-weight-bolder">user-id</span> -->
 
-			<h5 class="card-title float-left">{{ user_id }}</h5>
 			<div class="dropdown dropdown_btn">
 				<a class="btn btn-secondary float-right" href="#" role="button"  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical float-right float-top dropdown" viewBox="0 0 16 16">
@@ -44,6 +43,7 @@ export default {
 						image_url: '',
 						timestamp: '',
 						user_id: '',
+						user_name: '',
 						is_text_only_post : false
 				};
 		},
@@ -77,6 +77,7 @@ export default {
 					// this.comment_count = data.comment_count;
 					this.timestamp = data.timestamp;
 					this.user_id = data.user_id
+					this.user_name = data.user_name;
 					// console.log('type of ')
 				}
 			})
