@@ -156,6 +156,9 @@ import axios from 'axios'
 		axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
 
 	},
+	mounted(){
+		this.is_bookm = this.is_bookmarked;
+	},
 	watch:{
 		
 	}

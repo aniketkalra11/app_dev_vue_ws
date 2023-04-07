@@ -21,7 +21,7 @@
 		</div>
 		</div>
 	</div>
-	<PostContaint :timestamp="timestamp" :title="title" :caption="caption" :is_already_liked="is_already_liked" :is_bookmarked="is_bookmarked" :likes="likes" :comment_count="comment_count" :post_id="post_id"></PostContaint>
+	<PostContaint :timestamp="timestamp" :title="title" :caption="caption" :is_already_liked="is_already_liked" :is_bookmarked="is_bookmarked" :likes="likes" :comment_count="comment_count" :post_id="post_id"  ></PostContaint>
 </div>
 </template>
 
@@ -73,6 +73,7 @@ export default {
 					this.likes = data.likes;
 					this.image_url = this.getImageUrl(data.image_url);
 					this.comment_count = data.comment_count;
+					this.is_bookmarked = data.is_already_bookmarked;
 					// this.comment_count = data.comment_count;
 					this.timestamp = data.timestamp;
 					this.user_id = data.user_id
