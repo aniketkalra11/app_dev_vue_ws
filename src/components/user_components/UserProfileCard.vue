@@ -72,7 +72,7 @@ export default{
 				{
 					let data = response.data;
 					this.flwr_count = data.num_followers;
-					this.flwing_count = data.num_following;
+					this.flwing_count = data.num_of_following;
 					this.is_following = true;
 				}
 				else{

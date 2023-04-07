@@ -5,7 +5,8 @@
 	<PostWithImage v-if="!post.is_text_only" :post_id="post.post_id"></PostWithImage>
 	<PostWithTextOnly v-else :post_id="post.post_id" ></PostWithTextOnly>
 </div>
-<PaginationContainer></PaginationContainer>
+<PaginationContainer v-if="list_display_post.length !=0"></PaginationContainer>
+<h1 v-if="list_display_post.length ==0" >No Post Available</h1>
 </template>
 
 <script>

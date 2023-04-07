@@ -15,6 +15,7 @@ import SearchContainer from './components/search_bars/search_container.vue'
 import EditProfileContainer from './components/user_components/EditProfileContainer.vue'
 import EditPost from './components/post_componets/EditPost.vue'
 import UserProfileVisit from './components/user_components/UserProfileVisit'
+import UserBookmarks from './components/user_components/UserBookmarks.vue'
 
 const routes = createRouter({
 	history: createWebHistory(),
@@ -29,8 +30,10 @@ const routes = createRouter({
 		{ path: "/user/createpost", component: CreatePost},
 		{ path: "/user/search/:keyword", component: SearchContainer},
 		{ path: "/user/editprofile", component: EditProfileContainer},
-		{ path: "/user/follow/:key", component: SearchContainer},
-		{ path: "/user/post/edit/:post_id", component: EditPost}
+		{ path: "/user/follow/:user_id/:key", component: SearchContainer},
+		{ path: "/user/post/edit/:post_id", component: EditPost},
+		{ path: "/user/bookmark", component: UserBookmarks},
+		{ path: "/user/visit/profile/", component: UserProfileVisit}
 
 	]
 });

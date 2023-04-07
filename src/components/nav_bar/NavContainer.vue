@@ -20,9 +20,9 @@
         <router-link to="/user/createpost" class="nav-link">Create Post</router-link>
       </li>
       <li class="nav-item dropdown" :class="{active: is_book_mark_active}">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <router-link :to="'/user/bookmark'" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           BookMarks
-        </a>
+        </router-link>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Show Bookmarks</a>
           <a class="dropdown-item disabled" href="#" >Show Hidden Posts</a>

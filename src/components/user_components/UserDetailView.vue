@@ -17,10 +17,10 @@
             <div class="container text-center">
               <div class="row">
                 <div class="col">
-                  <router-link :to="'/user/follow/1'">Follower</router-link>
+                  <router-link :to="'/user/follow/'+ user_id+ '/1'">Follower</router-link>
                 </div>
                 <div class="col">
-                  <router-link :to="'/user/follow/2'">Following</router-link>
+                  <router-link :to="'/user/follow/'+ user_id+ '/2'">Following</router-link>
                 </div>
                 <div class="col">
                 <a href="">Posts</a>

@@ -5,14 +5,13 @@
 		<div class="card-img-overlay">
 			<!-- <span class="card-title card_title_custom font-weight-bolder">user-id</span> -->
 
-			<div class="dropdown dropdown_btn">
+			<div class="dropdown dropdown_btn" v-if="is_owner">
 				<a class="btn btn-secondary float-right" href="#" role="button"  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical float-right float-top dropdown" viewBox="0 0 16 16">
 					<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
 					</svg>
 				</a>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" href="#">Report Post</a>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
 					<!-- <a class="dropdown-item" href="#">Hide Post</a> -->
 					<router-link :to="'/user/post/edit/' + post_id" class="dropdown-item" href="#" v-if="is_owner">Edit Post</router-link>
 					<a class="dropdown-item" href="#" v-if="is_owner">Delete Post</a>
@@ -56,6 +55,7 @@ export default {
 			console.log('creating image post for post_id', this.post_id);
 			this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/post/";
 			let get_post_path = this.path + window.localStorage.getItem('user_id') + "/" + this.post_id;
+			this.user_id = window.localStorage.getItem('user_id');
 			console.log('final url path is: ', this.path)
 			let config = {
 				headers:{

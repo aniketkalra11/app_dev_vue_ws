@@ -1,7 +1,7 @@
 <template>
 	<div class="card mb-3">
 		<div class="card-body">
-			<h5 class="card-title" v-if="!$parent.is_text_only_post">{{ $parent.user_name}}</h5>
+			<router-link :to="'/user/visit/profile/' + $parent.user_id"><h5 class="card-title" v-if="!$parent.is_text_only_post">{{ $parent.user_name}}</h5></router-link>
 			<p class="card-text float-left"><small class="text-muted">Last updated {{ timestamp }}</small></p>
 			<a v-if="!$parent.is_bookmarked" @click="add_bookmark" :href="'#' + post_id">
 				<svg xmlns="http://www.w3.org/2000/svg" :width="icon_width+'px'" :height="icon_hegiht+'px'" fill="currentColor" class="bi bi-bookmark float-right book_mark_logo" viewBox="0 0 16 16" v-if="!$parent.is_bookmarked">

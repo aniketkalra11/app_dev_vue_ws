@@ -49,6 +49,7 @@ export default{
 		try{
 			console.log('test')
 			let key = this.$route.params['key']
+			this.user_id = this.$route.params['user_id']
 			if (key == 1)
 			{
 				this.is_follower_page = true
@@ -105,10 +106,10 @@ export default{
 			let path= process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/search"
 			let key_word = this.$route.params['keyword']
 			console.log('keyword is', key_word)
-			this.user_id = localStorage.getItem('user_id')
+			// this.user_id = localStorage.getItem('user_id')
 			let key = {
 				"keyword" : key_word,
-				"user_id" : this.user_id
+				"user_id" : localStorage.getItem('user_id')
 			}
 			axios.post(path, key).then(response =>{
 				if(response.status == 200){
@@ -123,7 +124,7 @@ export default{
 		},
 
 		get_follower_profiles(){
-			let path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/follower/user/" + window.localStorage.getItem('user_id');
+			let path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/follower/user/" + this.user_id;
 
 			axios.get(path).then(response =>{
 				if(response.status == 200)
@@ -139,7 +140,7 @@ export default{
 		},
 
 		get_following_profiles(){
-			let path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/following/user/" + window.localStorage.getItem('user_id');
+			let path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/following/user/" + this.user_id;
 			axios.get(path).then(response =>{
 				if(response.status == 200)
 				{
