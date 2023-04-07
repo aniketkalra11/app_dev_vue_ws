@@ -17,10 +17,10 @@
             <div class="container text-center">
               <div class="row">
                 <div class="col">
-                  <a href="">Follower</a>
+                  <router-link :to="'/user/follow/1'">Follower</router-link>
                 </div>
                 <div class="col">
-                <a href="">Following</a>
+                  <router-link :to="'/user/follow/2'">Following</router-link>
                 </div>
                 <div class="col">
                 <a href="">Posts</a>
@@ -43,7 +43,8 @@
 
     </div>
     <!-- <a href="#" class="btn btn-primary">Edit Profile</a> -->
-    <RouterLink to="/user/editprofile" class="btn btn-primary">Edit Profile</RouterLink>
+    <RouterLink to="/user/editprofile" class="btn btn-primary" v-if="is_owner
+    ">Edit Profile</RouterLink>
   </div>
 </div>
     </div>
@@ -60,14 +61,14 @@ export default{
     numFollowers: 0,
     numFollowing: 0,
     profileImg : '',
-    user_name: '',
-    user_id: ''
+    user_name: ''
     }
   },
+  props:['is_owner', 'user_id'],
   async created(){
+    axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
     console.log("fetching user profile details");
-    let path = process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/user/fetch/' + localStorage.getItem('user_id')
-    this.user_id = localStorage.getItem('user_id');
+    let path = process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/user/fetch/' + this.user_id;
     await axios.get(path, {}).then(response =>{
       console.log(response)
       if(response.status == 200)

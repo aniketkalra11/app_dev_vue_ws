@@ -13,6 +13,8 @@ import UserProfile from './components/user_components/UserProfile.vue'
 import CreatePost from './components/post_componets/CreatePost.vue'
 import SearchContainer from './components/search_bars/search_container.vue'
 import EditProfileContainer from './components/user_components/EditProfileContainer.vue'
+import EditPost from './components/post_componets/EditPost.vue'
+import UserProfileVisit from './components/user_components/UserProfileVisit'
 
 const routes = createRouter({
 	history: createWebHistory(),
@@ -23,10 +25,12 @@ const routes = createRouter({
 		{ path: "/experiment", component: ExperimentContainer},
 		{ path: "/user/post/view/:post_id/:is_text_only_post", component: IndividualPostPage},
 		{ path: "/user/profile", component: UserProfile},
-		{ path: "/user/visit/profile/:user_id", component: UserProfile},
+		{ path: "/user/visit/profile/:user_id", component: UserProfileVisit},
 		{ path: "/user/createpost", component: CreatePost},
 		{ path: "/user/search/:keyword", component: SearchContainer},
 		{ path: "/user/editprofile", component: EditProfileContainer},
+		{ path: "/user/follow/:key", component: SearchContainer},
+		{ path: "/user/post/edit/:post_id", component: EditPost}
 
 	]
 });

@@ -13,8 +13,8 @@
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					<a class="dropdown-item" href="#">Report Post</a>
-					<a class="dropdown-item" href="#">Hide Post</a>
-					<a class="dropdown-item" href="#" v-if="is_owner">Edit Post</a>
+					<!-- <a class="dropdown-item" href="#">Hide Post</a> -->
+					<router-link :to="'/user/post/edit/' + post_id" class="dropdown-item" href="#" v-if="is_owner">Edit Post</router-link>
 					<a class="dropdown-item" href="#" v-if="is_owner">Delete Post</a>
 				</div>
 		</div>

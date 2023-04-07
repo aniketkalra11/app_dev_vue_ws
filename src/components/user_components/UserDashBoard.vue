@@ -26,7 +26,7 @@ const dashboard = {
 			total_post: 0,
 			limit_of_post_per_page : 4,
 			path: '',
-			num_page : 0,
+			num_page : 0
 		}
 	},
 components:{
@@ -47,10 +47,6 @@ created(){
 				this.total_post = this.list_post.length
 				// console.log(typeof(response.data.list_post))
 				console.log(this.list_post)
-				for (let x in this.list_post)
-					{
-					console.log(x);
-				}
 			}
 		})
 	},

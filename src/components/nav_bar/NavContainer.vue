@@ -121,7 +121,7 @@ export default {
     " This will search user and display on the screen"
     if(this.is_in_search_bar)
     {
-      this.$parent.get_profiles();
+      this.$parent.get_search_profiles();
     }
     if (this.search_keyword != '')
     {
