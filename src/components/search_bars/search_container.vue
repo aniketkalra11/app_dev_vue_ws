@@ -15,7 +15,7 @@
 		<div class="row" v-for="list_fragment in profile_fragments" :key="list_fragment">
 			<div class="col-sm" v-for="user in list_fragment" :key="user">
 				<!-- {{ user }} -->
-				<ProfileCard :user_id="user.user_id" :name="user.name" :num_of_followrs="user.num_of_followers" :num_of_followings="user.num_of_following" :is_already_following="user.is_already_following" :img_link="user.profile_photo" ></ProfileCard>
+				<ProfileCard :user_id="user.user_id" :name="user.name" :num_of_followrs="user.num_of_followers" :num_of_followings="user.num_of_following" :is_already_following="user.is_user_already_following" :img_link="user.profile_photo" :num_posts="user.num_of_post" :id="user.user_id" v-if="user.user_id != user_id"></ProfileCard>
 			</div>
 		</div>
 	</div>
@@ -35,7 +35,8 @@ export default{
 		return{
 			result_profiles: [1,2,3,4,5,6,7,8],
 			profile_fragments: [],
-			list_users : []
+			list_users : [],
+			user_id: ''
 		}
 	},
 	created(){
@@ -44,10 +45,10 @@ export default{
 		let path= process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/search"
 		let key_word = this.$route.params['keyword']
 		console.log('keyword is', key_word)
+		this.user_id = localStorage.getItem('user_id')
 		let key = {
 			"keyword" : key_word,
-			"user_id" : localStorage.getItem('user_id')
-
+			"user_id" : this.user_id
 		}
 		axios.post(path, key).then(response =>{
 			if(response.status == 200){

@@ -1,14 +1,15 @@
 <template>
 	<NavBar :current_active_bar="none"></NavBar>
 	<div class="container">
-		<div id="carouselExampleSlidesOnly" class="carousel slide " data-ride="carousel">
+		<!-- <div id="carouselExampleSlidesOnly" class="carousel slide " data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img class="d-block w-100 image_size" :src="image_url" alt="First slide">
+					<img class="d-block w-100 image_size" :src="image_url" alt="First slide" v-if="is_image_available">
 				</div>
 				</div>
-			</div>
-
+			</div> -->
+			<PostWithImage v-if="!is_text_only_post" :post_id="post_id"></PostWithImage>
+			<PostWithTextOnly v-else :post_id="post_id"></PostWithTextOnly>
 			<div id="accordion">
 
 		<div class="card">
@@ -53,6 +54,8 @@ import NavBar from '../nav_bar/NavContainer.vue';
 import LikeUserGrid from './LikeUserGrid.vue';
 import PostComment from './PostCommentContainer.vue'
 import WriteComment from './WriteComment.vue'
+import PostWithImage from './PostWithImage.vue'
+import PostWithTextOnly from './PostWithTextOnly.vue'
 
 import axios from 'axios'
 export default{
@@ -67,11 +70,16 @@ export default{
 			likes_count : 0,
 			comment_count: 0,
 			image_url: '',
-			post_comment_path: ''
+			post_comment_path: '',
+			is_image_available : false,
+			is_text_only_post : false,
+			post_id : ''
 		}
 	},
 	async created(){
-		let post_id = this.$route.params.post_id
+		this.post_id = this.$route.params.post_id
+		let post_id = this.post_id
+		this.is_text_only_post = this.$route.params.is_text_only_post == '1' ? true : false;
 		console.log('param is:', post_id)
 		this.like_path = process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/like/post/' + localStorage.getItem('user_id') + "/" + post_id
 		let post_get_path =  process.env.VUE_APP_FLASK_SERVER_URL + '/api/v2/post/' + localStorage.getItem('user_id') + "/" + post_id
@@ -80,7 +88,16 @@ export default{
 			// Receiving post response
 			if(response.status == 200)
 			{
-				this.image_url = this.getImageUrl(response.data.image_url)
+				console.log('post_response is:', response.data)
+				if (response.data.image_url == "NOT_AVAILABLE")
+				{
+					this.image_url = ""
+				}
+				else
+				{
+					this.image_url = this.getImageUrl(response.data.image_url)
+					this.is_image_available = true;
+				}
 				this.likes_count = response.data.likes
 				this.comment_count = response.data.comment_count
 			}
@@ -120,11 +137,13 @@ export default{
 		})
 	},
 	components:{
-		NavBar,
-		LikeUserGrid,
-		PostComment,
-		WriteComment
-	},
+    NavBar,
+    LikeUserGrid,
+    PostComment,
+    WriteComment,
+    PostWithImage,
+    PostWithTextOnly
+},
 	methods:{
 		getImageUrl(image_id){
 				let final_url = process.env.VUE_APP_FLASK_SERVER_URL +  "/static/resources/img/" + image_id;

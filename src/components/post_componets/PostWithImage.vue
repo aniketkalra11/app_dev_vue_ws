@@ -43,13 +43,16 @@ export default {
 						caption: '',
 						image_url: '',
 						timestamp: '',
-						user_id: ''
+						user_id: '',
+						is_text_only_post : false
 				};
 		},
 		components: { 
 			PostContaint 
 		},
 		async created(){
+			axios.defaults.headers.common["Content-Type"] = "application/json";
+			axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
 			console.log('creating image post for post_id', this.post_id);
 			this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/post/";
 			let get_post_path = this.path + window.localStorage.getItem('user_id') + "/" + this.post_id;

@@ -21,7 +21,7 @@ const routes = createRouter({
 		{ path: "/signup", component: SignUpComponet1},
 		{ path: "/user/dashboard", component: UserDashBoard},
 		{ path: "/experiment", component: ExperimentContainer},
-		{ path: "/user/post/view/:post_id", component: IndividualPostPage},
+		{ path: "/user/post/view/:post_id/:is_text_only_post", component: IndividualPostPage},
 		{ path: "/user/profile", component: UserProfile},
 		{ path: "/user/visit/profile/:user_id", component: UserProfile},
 		{ path: "/user/createpost", component: CreatePost},

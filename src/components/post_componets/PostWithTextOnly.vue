@@ -40,7 +40,8 @@ export default {
 						caption: '',
 						image_url: '',
 						timestamp: '',
-						user_id: ''
+						user_id: '',
+						is_text_only_post : true
 				};
 		},
 		components: { 
