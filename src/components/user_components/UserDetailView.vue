@@ -45,6 +45,7 @@
     <!-- <a href="#" class="btn btn-primary">Edit Profile</a> -->
     <RouterLink to="/user/editprofile" class="btn btn-primary" v-if="is_owner
     ">Edit Profile</RouterLink>
+    <button class="btn btn-danger" v-if="is_owner" @click="remove_user()"> Delete User</button>
   </div>
 </div>
     </div>
@@ -53,6 +54,7 @@
 
 <script>
 import axios from 'axios'
+
 
 export default{
   data(){
@@ -88,8 +90,33 @@ export default{
     getImagePath(image_link){
       let image_url = process.env.VUE_APP_FLASK_SERVER_URL + '/static/' + image_link
       return image_url
+    },
+    remove_user()
+  {
+    let val = prompt("Please type 1 for delete user")
+    console.log(val)
+    if (val == '1')
+    {
+      console.log('confirmation received removing user')
+      let path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/delete/user/" + localStorage.getItem('user_id')
+      axios.post(path).then(response =>{
+        console.log('response of user delete', response)
+        if (response.status == 200)
+        {
+          let data = response.data
+          if (data.is_success)
+          {
+            alert('user_delete complete')
+            localStorage.clear();
+            this.$router.push("/");
+          }
+        }
+        
+      })
     }
   }
+  }
+  
 
 }
 </script>

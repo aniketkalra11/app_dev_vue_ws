@@ -82,6 +82,9 @@ v-bind:style="{top: getPosX()+'vh' , left: getPosY() + 'vw'}"
       <label for="inputPassword1" class="col-sm-2 col-form-label">Password</label>
       <div class="col-sm-10">
         <input type="password" class="form-control" id="inputPassword1" placeholder="Password" v-model="password">
+        <div class="warn_text" v-if="!is_password_correct">
+            {{pass_err}}
+          </div>
       </div>
     </div>
     <div class="form-group row">
@@ -130,7 +133,9 @@ export default{
       is_profession_crr: true,
       is_user_name_crr: true,
       usr_name_err_msg: "",
+      is_password_correct :true,
       password: "",
+      pass_err : "",
       re_password: "",
       is_password_matched: true,
       // Bubble settings
@@ -231,6 +236,25 @@ export default{
         alert("user creation success please login");
         this.$router.push("/");
       }
+    },
+    password(){
+      if(this.password != "")
+      {
+        if (this.password.length < 8)
+        {
+          this.is_password_correct = false
+          this.pass_err = "To Short password"
+        }
+        else
+        {
+          this.is_password_correct = true;
+          
+        }
+      }
+      else
+      {
+        this.is_password_correct = true
+      }
     }
   },
   methods:{
@@ -241,6 +265,15 @@ export default{
       return this.pos_y;
     },
     createUserCall(){
+      if (this.is_user_name_corr && this.is_first_name_corr && this.is_last_name_crr && this.is_dob_corr && this.is_city_corr && this.is_profession_crr && this.is_user_name_crr && this.is_password_correct && this.is_password_matched)
+      {
+        console.log('user validation complete')
+      }
+      else
+      {
+        alert('please fill data correctly')
+        return;
+      }
       console.log('create user called')
       let file = document.getElementById('profile_photo').files[0]
       console.log('receiving file', file)

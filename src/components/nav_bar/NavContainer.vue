@@ -25,9 +25,8 @@
         </router-link>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Show Bookmarks</a>
-          <a class="dropdown-item disabled" href="#" >Show Hidden Posts</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" >Show Private Posts</a>
+          <a class="dropdown-item" @click="sendExportJobRequest" >Export Post</a>
         </div>
       </li>
       <!-- <li class="nav-item">
@@ -129,9 +128,23 @@ export default {
     }
     
     
+  },
+  sendExportJobRequest(){
+    console.log('creating new async request')
+    let path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/export/" + window.localStorage.getItem("user_id")
+    axios.get(path).then(response=>{
+      console.log('accepted')
+      if (response.status == 200)
+      {
+        alert('export job started please check mail after few minutes')
+      }
+    }).catch(err=>{
+      console.log("error arrived please try after some time", err)
+    })
   }
   },
   async created(){
+    axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
     console.log("button creation complete, Receiving val:", this.current_active_bar);
     this.getCurrentActiveBtn();
   },
