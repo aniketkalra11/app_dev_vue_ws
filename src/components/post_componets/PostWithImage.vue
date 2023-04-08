@@ -14,7 +14,7 @@
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
 					<!-- <a class="dropdown-item" href="#">Hide Post</a> -->
 					<router-link :to="'/user/post/edit/' + post_id" class="dropdown-item" href="#" v-if="is_owner">Edit Post</router-link>
-					<a class="dropdown-item" href="#" v-if="is_owner">Delete Post</a>
+					<a class="dropdown-item" href="#" v-if="is_owner" @click="delete_post">Delete Post</a>
 				</div>
 		</div>
 		</div>
@@ -86,8 +86,31 @@ export default {
 			getImageUrl(image_id){
 				let final_url = process.env.VUE_APP_FLASK_SERVER_URL +  "/static/resources/img/" + image_id;
 				return final_url
-			}
+			},
+			delete_post(){
+			this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/post/";
+			let get_post_path = this.path + window.localStorage.getItem('user_id') + "/" + this.post_id;
+			this.user_id = window.localStorage.getItem('user_id');
+			console.log('final url path is: ', this.path)
+			axios.delete(get_post_path).then(response =>{
+				if (response.status == 200)
+				{
+					console.log("response data received", response.data)
+					let data = response.data
+					if (data.is_success)
+					{
+						this.$router.push('/user/profile')
+						window.location.reload();
+					}
+				}
+			}).catch(err =>{
+				console.log('unable to retrive data for this post_id: ', this.post_id);
+				console.log("error is:", err);
+			})
+
 		}
+		}
+		
 
 
 }

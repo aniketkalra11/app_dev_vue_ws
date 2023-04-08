@@ -109,14 +109,14 @@ export default{
 				console.log("response", response)
 				let data = response.data
 				console.log(data)
-				if (data.is_success)
+				if (data.is_success == "True")
 				{
 					console.log('post creation complete, redirecting to profile')
 					this.$router.push('/user/profile')
 				}
 				else{
 					console.log('unable to create log error arrived:', data.err)
-					alert('error arrived: ', data.err);
+					alert('error arrived: ' + data.err);
 				}
 			}).catch((err) =>{
 				console.log(err)

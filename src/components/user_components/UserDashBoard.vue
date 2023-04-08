@@ -38,6 +38,7 @@ components:{
 	PaginationContainer
 },
 created(){
+	axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
 	this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/post/" + window.localStorage.getItem("user_id")
 
 	axios.get(this.path, {}).then(response =>{

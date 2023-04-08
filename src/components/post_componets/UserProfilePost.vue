@@ -38,6 +38,13 @@ export default{
 },
 	async created(){
 		axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
+		this.updatePostList()
+	},
+	methods:{
+	set_page_containt(page_num){
+		this.list_display_post = this.post_fragments[page_num -1]
+	},
+	async updatePostList(){
 		this.path = process.env.VUE_APP_FLASK_SERVER_URL + "/api/v2/user/post/" + this.user_id;
 		console.log('user_id', window.localStorage.getItem('user_id'));
 		await axios.put(this.path, {}).then(response =>{
@@ -54,10 +61,6 @@ export default{
 		}).catch(err =>{
 			console.log('err arrived', err);
 		})
-	},
-	methods:{
-	set_page_containt(page_num){
-		this.list_display_post = this.post_fragments[page_num -1]
 	}
 
 },

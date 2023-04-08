@@ -22,6 +22,7 @@ export default{
 		}
 	},
 	created(){
+		// axios.defaults.headers.common["Authorization"] = 'Bearer ' + window.localStorage.getItem("token");
 		if (window.localStorage.getItem('user_id') == this.user_id)
 		{
 			console.log('same user detected redirecting to profile page');
