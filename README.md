@@ -26,6 +26,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 For intall with source file 
 
 run following commands
+```
 npm install
 npm install axios
 npm install --save bootstrap@^4.0.0-alpha.6  react-bootstrap@^0.32.1
+```
