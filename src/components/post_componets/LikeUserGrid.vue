@@ -51,7 +51,7 @@ export default{
 		{
 			console.log('computing number of rows ', this.likes_count)
 			console.log('watcher called:', this.list_likers)
-			if (this.$parent.likes_count != 0)
+			if (this.list_likers.length != 0)
 			{
 				var l = [];
 				l.push(this.list_likers[0])
