@@ -16,6 +16,7 @@ import EditProfileContainer from './components/user_components/EditProfileContai
 import EditPost from './components/post_componets/EditPost.vue'
 import UserProfileVisit from './components/user_components/UserProfileVisit'
 import UserBookmarks from './components/user_components/UserBookmarks.vue'
+import UserPasswordChange from './components/user_components/UserPasswordChange.vue'
 
 const routes = createRouter({
 	history: createWebHistory(),
@@ -33,7 +34,8 @@ const routes = createRouter({
 		{ path: "/user/follow/:user_id/:key", component: SearchContainer},
 		{ path: "/user/post/edit/:post_id", component: EditPost},
 		{ path: "/user/bookmark", component: UserBookmarks},
-		{ path: "/user/visit/profile/", component: UserProfileVisit}
+		{ path: "/user/visit/profile/", component: UserProfileVisit},
+		{ path: "/user/password/change", component: UserPasswordChange}
 
 	]
 });

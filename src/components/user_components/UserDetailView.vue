@@ -45,6 +45,7 @@
     <!-- <a href="#" class="btn btn-primary">Edit Profile</a> -->
     <RouterLink to="/user/editprofile" class="btn btn-primary" v-if="is_owner
     ">Edit Profile</RouterLink>
+    <router-link :to="'/user/password/change'" class="btn btn-secondary" >Change Password</router-link>
     <button class="btn btn-danger" v-if="is_owner" @click="remove_user()"> Delete User</button>
   </div>
 </div>
